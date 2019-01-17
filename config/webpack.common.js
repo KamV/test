@@ -94,8 +94,12 @@ module.exports = {
 			jquery: 'jquery'
 		}),
 		new webpack.ContextReplacementPlugin(
-			/angular(\\|\/)core(\\|\/)@angular/,
+			/\@angular(\\|\/)core(\\|\/)esm5/,
 			__dirname
 		)
+		// new webpack.ContextReplacementPlugin(
+		// 	/angular(\\|\/)core(\\|\/)@angular/,
+		// 	__dirname
+		// )
 	]
 };
