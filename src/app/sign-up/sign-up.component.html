@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <span class="flex-row"></span>
+  <a mat-button routerLink="/signin">Авторизация</a>
+</mat-toolbar>
+<mat-card>
+  <mat-card-title>Регистрация</mat-card-title>
+  <mat-card-content>
+    <form class="signup-form" [formGroup]="form" (submit)="signup()">
+      <mat-form-field>
+        <input matInput placeholder="Логин" [formControl]="login" required/>
+        <mat-error *ngIf="login.invalid">{{getLoginErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="E-mail" [formControl]="email" required/>
+        <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Пароль" [formControl]="password" minlength="8" required/>
+        <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary">Зарегистрироваться</button>
+    </form>
+  </mat-card-content>
+</mat-card>
