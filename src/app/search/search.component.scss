@@ -10,33 +10,34 @@
 
 	form {
 		input {
-			height: 25px;
-			color: #1c2544;
-			background: transparent;
-			border: none;
-			border-bottom: 1px solid rgba(28,37,68,.2);
-			border-radius: 0;
+			// height: 25px;
+			// color: #1c2544;
+			// background: transparent;
+			// border: none;
+			// border-bottom: 1px solid rgba(28,37,68,.2);
+			// border-radius: 0;
 			max-width: 500px;
-
-			&:focus {
-				outline:none;
-				border-bottom: 1px solid #2b313c;
-			}
 		}
-
-		button {
-			height: 30px;
-			border-radius: 37px;
-    	text-align: center;
-			border: none;
-    	min-width: 130px;
-			background-image: none;
-	    background-color: #2b313c;
-	    color: #fff;
-
-			&:hover {
-					background: #444;
-			}
-		}
+    //
+		// 	&:focus {
+		// 		outline:none;
+		// 		border-bottom: 1px solid #2b313c;
+		// 	}
+		// }
+    //
+		// button {
+		// 	height: 30px;
+		// 	border-radius: 37px;
+    // 	text-align: center;
+		// 	border: none;
+    // 	min-width: 130px;
+		// 	background-image: none;
+	  //   background-color: #2b313c;
+	  //   color: #fff;
+    //
+		// 	&:hover {
+		// 			background: #444;
+		// 	}
+		// }
 	}
 }

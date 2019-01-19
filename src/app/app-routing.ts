@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   { path: 'signin', component: SignInComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'search', component: SearchComponent },
-  { path: 'result', component: ResultComponent },
+  { path: 'result/:searchValue', component: ResultComponent },
   { path: 'answers', component: AnswersComponent },
   // { path: 'main/:appId', component: MainComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/signin' }

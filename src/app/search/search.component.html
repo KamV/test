@@ -1,8 +1,10 @@
 <div class="flex-container">
   <div class="content">
-    <form>
-      <input type="text" placeholder="Искать здесь...">
-      <button type="submit">Искать</button>
+    <form [formGroup]="form" (submit)="search()">
+      <mat-form-field class="example-full-width">
+        <input matInput formControlName="searchValue">
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary">Искать</button>
     </form>
   </div>
 </div>

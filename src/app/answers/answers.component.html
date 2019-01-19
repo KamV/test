@@ -1,3 +1,42 @@
-<div>
-  Ответы на вопрос
+<div class="answer-container mat-elevation-z8">
+  {{test}}
+  <div *ngIf="isLoadingResults || isRateLimitReached" class="result-loading-shade">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="result-rate-limit-reached" *ngIf="isRateLimitReached">
+      Что-то пошло не так.
+    </div>
+  </div>
+  <mat-table #table [dataSource]="dataSource" class="result-table"
+             matSort matSortActive="lastActivityDate" matSortDisableClear matSortDirection="asc">
+    <ng-container matColumnDef="lastActivityDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">
+        Последняя дата активности
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.last_activity_date | date: 'dd-MM' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="owner">
+      <mat-header-cell *matHeaderCellDef>Автор</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.owner.display_name }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Тема</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="answerCount">
+      <mat-header-cell *matHeaderCellDef>Количество ответов</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.answer_count }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="tags">
+      <mat-header-cell *matHeaderCellDef>Тэги</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <li *ngFor="let tag of row.tags">
+          {{ tag }}
+        </li>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [length]="answersLength" [pageSize]="20">
+  </mat-paginator>
 </div>
