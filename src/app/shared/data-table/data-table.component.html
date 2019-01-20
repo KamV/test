@@ -1,0 +1,47 @@
+<div class="result-container mat-elevation-z8">
+  <div *ngIf="isLoadingResults || isRateLimitReached" class="result-loading-shade">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="result-rate-limit-reached" *ngIf="isRateLimitReached">
+      Что-то пошло не так.
+    </div>
+  </div>
+  <mat-table #table [dataSource]="dataSource" class="result-table"
+             matSort matSortActive="lastActivityDate" matSortDisableClear matSortDirection="desc">
+    <ng-container matColumnDef="lastActivityDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">
+        Последняя дата активности
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.last_activity_date | date: 'dd-MM'}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="owner">
+      <mat-header-cell *matHeaderCellDef>Автор</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button (click)="showOwnerFunctionalPanel(row.owner.user_id)">{{row.owner.display_name}}</button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Тема</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button (click)="showAnswers(row.question_id, row.title)">{{row.title}}</button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="answerCount">
+      <mat-header-cell *matHeaderCellDef>Количество ответов</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button (click)="showAnswers(row.question_id, row.title)">{{row.answer_count}}</button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="tags">
+      <mat-header-cell *matHeaderCellDef>Тэги</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <li *ngFor="let tag of row.tags">
+          <button mat-button (click)="showTagFunctionalPanel(tag)">{{tag}}</button>
+        </li>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [length]="resultsLength" [pageSize]="5">
+  </mat-paginator>
+</div>

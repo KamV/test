@@ -13,10 +13,9 @@ const appRoutes: Routes = [
   { path: '', component: SignInComponent },
   { path: 'signin', component: SignInComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'result/:searchValue', component: ResultComponent },
-  { path: 'answers', component: AnswersComponent },
-  // { path: 'main/:appId', component: MainComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
+  { path: 'result/:searchValue', component: ResultComponent, canActivate: [AuthGuard] },
+  { path: 'answers/:questionId/:questionTitle', component: AnswersComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/signin' }
 
 ];

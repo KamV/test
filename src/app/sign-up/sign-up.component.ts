@@ -14,9 +14,9 @@ export class SignUpComponent implements OnInit {
 
   form: FormGroup;
 
-  login = new FormControl('', [Validators.required]);
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  // name = new FormControl('', [Validators.required]);
+  // email = new FormControl('', [Validators.required, Validators.email]);
+  // password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
   constructor(
     private authService: AuthService,
@@ -25,22 +25,30 @@ export class SignUpComponent implements OnInit {
     private titleService: TitleService,) { }
 
   ngOnInit() {
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+		if (user) {
+			this.router.navigate(['search']);
+		}
     this.setAppTitle();
     this.form = this.formBuilder.group({
-        login: '',
-        password: '',
-        email: '',
-        nickname: '',
-        birthDate: ''
+        name: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+        email: new FormControl('', [Validators.required, Validators.email])
     });
   }
 
-  signup() {
-    console.log('hello');
-    // this.authService.signUp(this.form.value).subscribe(resp => {
-    //   localStorage.setItem('currentUser', JSON.stringify({id: resp.id, nickname: resp.nickname, isAuth: true, role: resp.roles[0].authority }));
-    //   this.router.navigate(['favourites']);
-    // });
+  get name(): any { return this.form.get('name'); }
+
+  get email(): any { return this.form.get('email'); }
+
+  get password(): any { return this.form.get('password'); }
+
+  signUp() {
+    if (this.form.valid) {
+      this.authService.signUp({user: this.form.value}).subscribe(resp => {
+        this.router.navigate(['signin']);
+      });
+    }
   }
 
   private setAppTitle() {
@@ -48,17 +56,17 @@ export class SignUpComponent implements OnInit {
   }
 
   getLoginErrorMessage() {
-    return this.login.hasError('required') ? 'Обязательное поле для заполнения' : '';
+    return this.form.get('name').hasError('required') ? 'Обязательное поле для заполнения' : '';
   }
 
   getEmailErrorMessage() {
-    return this.email.hasError('required') ? 'Обязательное поле для заполнения' :
-        this.email.hasError('email') ? 'Email не валиден' : '';
+    return this.form.get('email').hasError('required') ? 'Обязательное поле для заполнения' :
+        this.form.get('email').hasError('email') ? 'Email не валиден' : '';
   }
 
   getPasswordErrorMessage() {
-    return this.password.hasError('required') ? 'Обязательное поле для заполнения' :
-        this.password.hasError('minlength') ? 'Пароль должен содержать не менее 8 знаков' : '';
+    return this.form.get('password').hasError('required') ? 'Обязательное поле для заполнения' :
+        this.form.get('password').hasError('minlength') ? 'Пароль должен содержать не менее 8 знаков' : '';
   }
 
 }

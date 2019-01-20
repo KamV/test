@@ -1,36 +1,38 @@
-export interface User {
-  id: number;
+export interface IAuth {
+  user: IUser;
+}
+
+export interface IUser {
+  token: string;
   email: string;
-  nickname: string;
+  name: string;
 }
 
-export interface SearchResult {
-  items: Question[];
+export interface ISearchResult {
+  items: IQuestion[];
 }
 
-export interface Question {
+export interface IQuestion {
   question_id: number;
   tags: string[];
-  owner: Owner;
+  owner: IOwner;
   answer_count: number;
   last_activity_date: number;
   title: string;
 }
 
-export interface Answers {
-  items: Answer[];
+export interface IAnswers {
+  items: IAnswer[];
 }
 
-export interface Answer {
+export interface IAnswer {
   answer_id: number;
-  tags: string[];
-  owner: Owner;
-  answer_count: number;
-  last_activity_date: number;
+  owner: IOwner;
+  score: number;
   body: string;
 }
 
-export interface Owner {
+export interface IOwner {
   user_id: number;
   display_name: string;
 }

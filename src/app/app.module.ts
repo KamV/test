@@ -23,7 +23,6 @@ import {
   MatPaginatorIntl,
 } from '@angular/material';
 
-
 import { AuthGuard } from '../common/guards/auth.guard';
 import { routing } from './app-routing';
 
@@ -34,6 +33,7 @@ import { SearchComponent } from './search/search.component';
 import { ResultComponent } from './result/result.component';
 import { AnswersComponent } from './answers/answers.component';
 import { NavigationComponent } from './shared/nav/nav.component';
+import { DataTableComponent } from './shared/data-table/data-table.component';
 import { getRussianPaginatorIntl } from './shared/russian-paginator-intl';
 
 import { TitleService } from '../common/services/title.service';
@@ -52,6 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ResultComponent,
     AnswersComponent,
     NavigationComponent,
+    DataTableComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
-<ul>
-  <li><a [routerLink]="['/search']" href="">Поиск</a></li>
-  <li><a [routerLink]="['/']" href="">Выйти</a></li>
-</ul>
+<mat-toolbar color="primary">
+  <div class="flex-row">
+    <a mat-button routerLink="/search">Поиск</a>
+    <button mat-button (click)="logOut()">Выйти</button>
+  </div>
+</mat-toolbar>

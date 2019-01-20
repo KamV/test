@@ -1,31 +1,12 @@
-.result-container {
+.flex-row {
   display: flex;
-  flex-direction: column;
-  max-height: 500px;
-  min-width: 300px;
-  position: relative;
+  justify-content: center;
+  align-items: center;
 
-  .result-table {
-    overflow: auto;
-    min-height: 300px;
-  }
-
-  .result-loading-shade {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 56px;
-    right: 0;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .result-rate-limit-reached {
-    color: #980000;
-    max-width: 360px;
+  .title-card {
+    width: 400px;
     text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 }

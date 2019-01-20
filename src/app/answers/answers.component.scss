@@ -1,16 +1,24 @@
-.answer-container {
+.flex-row {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  max-height: 500px;
-  min-width: 300px;
-  position: relative;
 
-  .answer-table {
-    overflow: auto;
-    min-height: 300px;
+  .question-card {
+    width: 400px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 
-  .answer-loading-shade {
+  .answer-card {
+    max-width: 700px;
+    min-width: 400px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .result-loading-shade {
     position: absolute;
     top: 0;
     left: 0;
@@ -23,9 +31,19 @@
     justify-content: center;
   }
 
-  .answer-rate-limit-reached {
+  .result-rate-limit-reached {
     color: #980000;
     max-width: 360px;
     text-align: center;
+  }
+
+  .answer-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  mat-card-content {
+    width: 100%;
+    overflow: auto;
   }
 }

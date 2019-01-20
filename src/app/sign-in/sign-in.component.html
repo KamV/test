@@ -7,13 +7,14 @@
   <mat-card-content>
     <form class="signin-form" [formGroup]="form" (submit)="signIn()">
       <mat-form-field>
-        <input matInput placeholder="Логин" formControlName="login" required/>
-        <mat-error *ngIf="login.invalid">{{getLoginErrorMessage()}}</mat-error>
+        <input matInput placeholder="E-mail" formControlName="email" required/>
+        <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field>
         <input matInput type="password" placeholder="Пароль" formControlName="password" minlength="8" required/>
         <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
+      <mat-checkbox color="primary" formControlName="rememberMe">Запомнить меня</mat-checkbox>
       <button type="submit" mat-raised-button color="primary">Войти</button>
     </form>
     <p class="error-pass" *ngIf="errorAuth">

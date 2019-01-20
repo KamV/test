@@ -13,8 +13,6 @@ import { AuthService } from '../../common/services/auth.service';
 export class SignInComponent implements OnInit {
 
   form: FormGroup;
-  login = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
   errorAuth: boolean = false;
 
@@ -25,37 +23,53 @@ export class SignInComponent implements OnInit {
     private titleService: TitleService,) { }
 
   ngOnInit() {
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+		if (user) {
+			this.router.navigate(['search']);
+		}
+
     this.setAppTitle();
     this.form = this.formBuilder.group({
-        login: '',
-        password: '',
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+        rememberMe: false
     });
+  }
+
+  get email(): any { return this.form.get('email'); }
+
+  get password(): any { return this.form.get('password'); }
+
+  signIn() {
+    if (this.form.valid) {
+      this.errorAuth = false;
+      this.authService.signIn({user: this.form.value}).subscribe(resp => {
+        if (this.form.value.rememberMe) {
+          localStorage.setItem('currentUser', JSON.stringify({email: resp.email, name: resp.name, token: resp.token }));
+        } else {
+          sessionStorage.setItem('currentUser', JSON.stringify({email: resp.email, name: resp.name, token: resp.token }));
+        }
+        this.router.navigate(['search']);
+      },
+      error => {
+        this.errorAuth = true;
+      });
+    }
+  }
+
+  getEmailErrorMessage() {
+    return this.form.get('email').hasError('required') ? 'Обязательное поле для заполнения' :
+        this.form.get('email').hasError('email') ? 'Email не валиден' : '';
+  }
+
+  getPasswordErrorMessage() {
+    return this.form.get('password').hasError('required') ? 'Обязательное поле для заполнения' :
+        this.form.get('password').hasError('minlength') ? 'Пароль должен содержать не менее 8 знаков ' :
+            '';
   }
 
   private setAppTitle() {
     this.titleService.setPageTitle('Авторизация');
-  }
-
-  signIn() {
-    // this.authService.signIn(this.form.value.login, this.form.value.password).subscribe(resp => {
-    //   this.authService.getMe().subscribe(resp => {
-    //     localStorage.setItem('currentUser', JSON.stringify({id: resp.id, isAuth: true, role: resp.roles[0].authority }));
-    //     this.router.navigate(['favourites']);
-    //   });
-    // },
-    // error => {
-    //       this.errorAuth = true;
-    // });
-  }
-
-  getLoginErrorMessage() {
-    return this.login.hasError('required') ? 'Обязательное поле для заполнения' : '';
-  }
-
-  getPasswordErrorMessage() {
-    return this.password.hasError('required') ? 'Обязательное поле для заполнения' :
-        this.password.hasError('minlength') ? 'Пароль должен содержать не менее 8 знаков ' :
-            '';
   }
 
 }
